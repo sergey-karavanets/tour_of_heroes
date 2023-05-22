@@ -41,13 +41,13 @@ def get_heroes():
     return heroes_schema.dump(heroes)
 
 
-@app.route('/api/detail/<int:id>', methods=['GET'])
-def get_hero(id):
-    hero = db.get_or_404(Heroes, id)
+@app.route('/api/detail/<int:id_hero>', methods=['GET'])
+def get_hero(id_hero):
+    hero = db.get_or_404(Heroes, id_hero)
     return hero_schema.dump(hero)
 
 
-@app.route('/api/add_hero', methods=['POST'])
+@app.route('/api/heroes', methods=['POST'])
 def create_hero():
     hero = Heroes(
         id=request.json['id'],
@@ -55,12 +55,14 @@ def create_hero():
     )
     db.session.add(hero)
     db.session.commit()
-    return Response(status=201)
+    response = Response(status=201)
+    response.headers['Location'] = '/api/detail/' + request.json['id']
+    return response
 
 
-@app.route('/api/detail/<int:id>', methods=['PATCH'])
-def update_hero(id):
-    hero = db.get_or_404(Heroes, id)
+@app.route('/api/detail/<int:id_hero>', methods=['PUT'])
+def update_hero(id_hero):
+    hero = db.get_or_404(Heroes, id_hero)
     new_name = request.json['name']
     hero.name = new_name
     db.session.commit()
@@ -68,14 +70,14 @@ def update_hero(id):
 
 
 @app.route('/api/detail/<int:id>', methods=['DELETE'])
-def delete_hero(id):
-    hero = db.get_or_404(Heroes, id)
+def delete_hero(id_hero):
+    hero = db.get_or_404(Heroes, id_hero)
     db.session.delete(hero)
     db.session.commit()
     return Response(status=200)
 
 
-@app.route('/api/search/<search_term>')
+@app.route('/api/search/<search_term>', methods=['GET'])
 def search_hero(search_term):
     heroes = Heroes.query.filter(Heroes.name.like('%'+search_term+'%')).order_by(Heroes.id).all()
     return heroes_schema.dump(heroes)
