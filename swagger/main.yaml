@@ -15,7 +15,7 @@ paths:
       summary: Get a list of Heroes
       tags:
         - Heroes
-      operationId: getAllHeroes
+      operationId: heroes_app.get_heroes
       responses:
         '200':
           description: Successful response with JSON array of Heroes
@@ -34,7 +34,7 @@ paths:
       summary: Add a new Hero
       tags:
         - Heroes
-      operationId: createHero
+      operationId: heroes_app.create_hero
       requestBody:
         required: true
         content:
@@ -60,7 +60,7 @@ paths:
       summary: Get a Hero
       tags:
         - Heroes
-      operationId: getHeroById
+      operationId: heroes_app.get_hero
       parameters:
         - name: id
           in: path
@@ -87,7 +87,7 @@ paths:
       summary: Update a Hero
       tags:
         - Heroes
-      operationId: updateHeroById
+      operationId: heroes_app.update_hero
       parameters:
         - name: id
           in: path
@@ -112,7 +112,7 @@ paths:
       summary: Delete a Hero
       tags:
         - Heroes
-      operationId: deleteHeroById
+      operationId: heroes_app.delete_hero
       parameters:
         - name: id
           in: path
@@ -138,7 +138,7 @@ paths:
       summary: Search a Hero
       tags:
         - Heroes
-      operationId: searchHeroByTerm
+      operationId: heroes_app.search_hero
       parameters:
         - name: search_term
           in: path
