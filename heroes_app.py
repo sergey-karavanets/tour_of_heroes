@@ -11,7 +11,7 @@ api_app.add_api('main.yaml')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/tour_of_heroes'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-api = Api(app)
+my_api = Api(app)
 
 
 class Heroes(db.Model):
