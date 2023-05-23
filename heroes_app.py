@@ -2,8 +2,12 @@ from flask import Flask, request, Response, redirect, url_for
 from flask_restful import Resource, Api, reqparse
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+import connexion
+
 
 app = Flask(__name__)
+api_app = connexion.FlaskApp(__name__, specification_dir='swagger/')
+api_app.add_api('main.yaml')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/tour_of_heroes'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
@@ -85,3 +89,4 @@ def search_hero(search_term):
 
 if __name__ == '__main__':
     app.run(debug=True)
+    api_app.run(port=8080)
