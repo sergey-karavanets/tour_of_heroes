@@ -1,0 +1,193 @@
+openapi: 3.0.3
+info:
+  title: Tour of Heroes API
+  description: |-
+    This specification contains the main CRUD methods for working with Heroes.
+  version: 1.0.0
+
+servers:
+  - url: http://127.0.0.1:5000/api
+    description: dev server
+
+paths:
+  /heroes:
+    get:
+      summary: Get a list of Heroes
+      tags:
+        - Heroes
+      operationId: hero_api.controllers.hero_controller.HeroController.get_list
+      responses:
+        '200':
+          description: Successful response with JSON array of Heroes
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Heroes"
+        'default':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+#    post:
+#      summary: Add a new Hero
+#      tags:
+#        - Heroes
+#      operationId: hero_api.controllers.hero_controller.HeroController.add_hero
+#      requestBody:
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              $ref: "#/components/schemas/Hero"
+#      responses:
+#        '201':
+#          description: Successful response about creating a Hero
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/Hero"
+#        'default':
+#          description: Error
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/Error"
+#
+#  /detail/{id}:
+#    get:
+#      summary: Get a Hero
+#      tags:
+#        - Heroes
+#      operationId: hero_api.controllers.hero_controller.HeroController.get_hero
+#      parameters:
+#        - name: id
+#          in: path
+#          required: true
+#          description: Hero ID
+#          schema:
+#            type: string
+#            example: 69
+#      responses:
+#        '200':
+#          description: Successful response with JSON hero
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/Hero"
+#        'default':
+#          description: Error
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/Error"
+#
+#    put:
+#      summary: Update a Hero
+#      tags:
+#        - Heroes
+#      operationId: hero_api.controllers.hero_controller.HeroController.update_hero
+#      parameters:
+#        - name: id
+#          in: path
+#          required: true
+#          description: Hero ID
+#          schema:
+#            type: string
+#            example: 69
+#      responses:
+#        '200':
+#          description: Successful update to the Hero
+#          content:
+#            application/json: {}
+#        'default':
+#          description: Error
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/Error"
+#
+#    delete:
+#      summary: Delete a Hero
+#      tags:
+#        - Heroes
+#      operationId: hero_api.controllers.hero_controller.HeroController.delete_hero
+#      parameters:
+#        - name: id
+#          in: path
+#          required: true
+#          description: Hero ID
+#          schema:
+#            type: string
+#            example: 69
+#      responses:
+#        '200':
+#          description: Successful removal of the Hero
+#          content:
+#            application/json: {}
+#        'default':
+#          description: Error
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/Error"
+#
+#  /search/{search_term}:
+#    get:
+#      summary: Search a Hero
+#      tags:
+#        - Heroes
+#      operationId: hero_api.controllers.hero_controller.HeroController.search_heroes
+#      parameters:
+#        - name: search_term
+#          in: path
+#          required: true
+#          description: Match Hero Search
+#          schema:
+#            type: string
+#            example: Luna
+#      responses:
+#        '200':
+#          description: Successful search for Heroes for the given term
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/Heroes"
+#        'default':
+#          description: Error
+#          content:
+#            application/json:
+#              schema:
+#                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Hero:
+      type: object
+      required: 
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          example: 69
+        name:
+          type: string
+          example: Bugiman
+    
+    Heroes:
+      type: array
+      items:
+        $ref: "#/components/schemas/Hero"
+    
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
