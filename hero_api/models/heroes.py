@@ -12,7 +12,3 @@ class Heroes(db.Model):
 
     def __repr__(self):
         return f'<{self.id}:{self.name}>'
-
-    @classmethod
-    def list(cls):
-        return cls.query.all()
